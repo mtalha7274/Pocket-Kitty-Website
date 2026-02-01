@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pocket Kitty - AI Pet Guardian</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Poppins (Clean & Modern) -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#48D1CC', // Turquoise from Icon
+                        primaryDark: '#20B2AA',
+                        secondary: '#FF6B6B', // Coral accent for SOS/Heart
+                        dark: '#1F2937',
+                        light: '#F3F4F6'
+                    },
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Smooth scrolling */
+        html { scroll-behavior: smooth; }
+        
+        /* Custom Blob Shapes */
+        .blob-shape {
+            position: absolute;
+            z-index: -1;
+            filter: blur(40px);
+            opacity: 0.6;
+        }
+
+        /* View Switching Logic */
+        .page-view { display: none; }
+        .page-view.active { display: block; animation: fadeIn 0.5s; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="font-sans text-dark bg-white overflow-x-hidden selection:bg-primary selection:text-white">
+
+    <!-- NAVIGATION -->
+    <nav class="fixed w-full z-50 bg-white/90 backdrop-blur-md shadow-sm">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center cursor-pointer" onclick="navigateTo('home')">
+                    <!-- Placeholder for the uploaded icon -->
+                    <div class="relative w-10 h-10 mr-2 rounded-xl overflow-hidden shadow-sm bg-primary flex items-center justify-center text-white">
+                        <img src="app_icon.png" alt="Pocket Kitty Icon" class="w-full h-full object-cover" onerror="this.style.display='none'; this.parentElement.innerHTML='<span class=\'font-bold text-xl\'>PK</span>'">
+                    </div>
+                    <span class="font-bold text-xl tracking-tight">Pocket Kitty</span>
+                </div>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-8">
+                    <a href="#home" onclick="navigateTo('home')" class="text-gray-600 hover:text-primary transition font-medium">Home</a>
+                    <a href="#features" onclick="navigateTo('home', 'features')" class="text-gray-600 hover:text-primary transition font-medium">Features</a>
+                    <a href="#privacy" onclick="navigateTo('privacy')" class="text-gray-600 hover:text-primary transition font-medium">Privacy</a>
+                    <a href="#terms" onclick="navigateTo('terms')" class="text-gray-600 hover:text-primary transition font-medium">Terms</a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center">
+                    <button onclick="toggleMobileMenu()" class="text-gray-600 hover:text-primary focus:outline-none">
+                        <i data-lucide="menu" class="w-6 h-6"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100 p-4 space-y-2 shadow-lg">
+            <a href="#home" onclick="navigateTo('home'); toggleMobileMenu()" class="block text-gray-700 font-medium py-2">Home</a>
+            <a href="#privacy" onclick="navigateTo('privacy'); toggleMobileMenu()" class="block text-gray-700 font-medium py-2">Privacy Policy</a>
+            <a href="#terms" onclick="navigateTo('terms'); toggleMobileMenu()" class="block text-gray-700 font-medium py-2">Terms of Use</a>
+        </div>
+    </nav>
+
+    <!-- CONTENT CONTAINER -->
+    <main class="pt-16">
+
+        <!-- ================= HOME VIEW ================= -->
+        <div id="view-home" class="page-view active">
+            
+            <!-- Hero Section -->
+            <section class="relative pt-20 pb-32 overflow-hidden">
+                <!-- Decorative Blobs -->
+                <div class="blob-shape bg-primary w-96 h-96 rounded-full -top-20 -left-20 opacity-20"></div>
+                <div class="blob-shape bg-secondary w-80 h-80 rounded-full top-40 right-0 opacity-10"></div>
+
+                <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                    <div class="inline-flex items-center px-4 py-2 rounded-full bg-primary/10 text-primaryDark text-sm font-semibold mb-6 animate-pulse">
+                        <span class="mr-2">✨</span> Introducing your AI Pet Companion
+                    </div>
+                    
+                    <h1 class="text-5xl md:text-6xl font-bold mb-6 leading-tight">
+                        The AI Guardian <br>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-primaryDark">Every Pet Deserves.</span>
+                    </h1>
+                    
+                    <p class="text-xl text-gray-600 mb-10 max-w-2xl mx-auto">
+                        Track health, join a safe community, and never worry about lost pets again with our SOS Pet Drops.
+                    </p>
+                    
+                    <div class="flex flex-col sm:flex-row justify-center gap-4">
+                        <button class="px-8 py-4 bg-primary hover:bg-primaryDark text-white rounded-2xl font-semibold text-lg shadow-lg hover:shadow-xl transition transform hover:-translate-y-1 flex items-center justify-center">
+                            <i data-lucide="download" class="w-5 h-5 mr-2"></i> Download App
+                        </button>
+                        <button class="px-8 py-4 bg-white border-2 border-gray-200 hover:border-primary text-gray-700 hover:text-primary rounded-2xl font-semibold text-lg shadow-sm hover:shadow-md transition flex items-center justify-center">
+                            <i data-lucide="play-circle" class="w-5 h-5 mr-2"></i> Watch Video
+                        </button>
+                    </div>
+
+                    <!-- App Mockup Placeholder -->
+                    <div class="mt-16 relative mx-auto w-full max-w-lg">
+                        <div class="bg-gradient-to-b from-gray-50 to-white rounded-[3rem] p-4 shadow-2xl border border-gray-100 transform rotate-[-2deg] hover:rotate-0 transition duration-500">
+                             <img src="app_icon.png" class="w-32 h-32 mx-auto mb-4 rounded-2xl shadow-lg mt-10" alt="App Icon">
+                             <div class="space-y-4 px-6 pb-10">
+                                 <div class="h-4 bg-gray-100 rounded w-3/4 mx-auto"></div>
+                                 <div class="h-4 bg-gray-100 rounded w-1/2 mx-auto"></div>
+                                 <div class="grid grid-cols-3 gap-4 mt-8">
+                                     <div class="h-20 bg-primary/20 rounded-xl"></div>
+                                     <div class="h-20 bg-secondary/20 rounded-xl"></div>
+                                     <div class="h-20 bg-blue-100 rounded-xl"></div>
+                                 </div>
+                             </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Features Section -->
+            <section id="features" class="py-24 bg-gray-50">
+                <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center mb-16">
+                        <h2 class="text-3xl font-bold mb-4">More Than Just a Pet App</h2>
+                        <p class="text-gray-600 max-w-2xl mx-auto">Pocket Kitty combines health tracking, AI intelligence, and community safety into one powerful pocket companion.</p>
+                    </div>
+
+                    <div class="grid md:grid-cols-3 gap-10">
+                        <!-- Feature 1 -->
+                        <div class="bg-white p-8 rounded-3xl shadow-sm hover:shadow-lg transition group">
+                            <div class="w-14 h-14 bg-red-100 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition">
+                                <i data-lucide="heart" class="text-secondary w-7 h-7"></i>
+                            </div>
+                            <h3 class="text-xl font-bold mb-3">AI Health Tracking</h3>
+                            <p class="text-gray-600">Log weight, meals, and meds. Our AI analyzes trends and gives you daily personalized tips to keep your pet at their best.</p>
+                        </div>
+
+                        <!-- Feature 2 -->
+                        <div class="bg-white p-8 rounded-3xl shadow-sm hover:shadow-lg transition group">
+                            <div class="w-14 h-14 bg-primary/20 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition">
+                                <i data-lucide="map-pin" class="text-primary w-7 h-7"></i>
+                            </div>
+                            <h3 class="text-xl font-bold mb-3">Pet Drops (SOS)</h3>
+                            <p class="text-gray-600">Lost your pet? Toggle Emergency Mode to alert nearby users instantly. A location-based safety net for peace of mind.</p>
+                        </div>
+
+                        <!-- Feature 3 -->
+                        <div class="bg-white p-8 rounded-3xl shadow-sm hover:shadow-lg transition group">
+                            <div class="w-14 h-14 bg-yellow-100 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition">
+                                <i data-lucide="users" class="text-yellow-600 w-7 h-7"></i>
+                            </div>
+                            <h3 class="text-xl font-bold mb-3">Community Feed</h3>
+                            <p class="text-gray-600">Share funny moments or ask for advice. A dedicated space for pet lovers, moderated by AI to ensure a safe environment.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CTA Section -->
+            <section class="py-20 relative overflow-hidden">
+                <div class="absolute inset-0 bg-primary opacity-90"></div>
+                <!-- Pattern overlay could go here -->
+                <div class="relative max-w-4xl mx-auto px-4 text-center text-white">
+                    <h2 class="text-4xl font-bold mb-6">Ready to join the pack?</h2>
+                    <p class="text-xl mb-10 opacity-90">Start your streak today and become the best caregiver for your furry friend.</p>
+                    <button class="bg-white text-primary px-10 py-4 rounded-full font-bold text-lg shadow-xl hover:bg-gray-50 transition transform hover:-translate-y-1">
+                        Download for Free
+                    </button>
+                </div>
+            </section>
+        </div>
+
+        <!-- ================= PRIVACY POLICY VIEW ================= -->
+        <div id="view-privacy" class="page-view">
+            <div class="max-w-3xl mx-auto px-4 py-16">
+                <h1 class="text-4xl font-bold mb-2">Privacy Policy</h1>
+                <p class="text-gray-500 mb-8">Last Updated: February 1, 2026</p>
+                
+                <div class="prose prose-lg text-gray-700">
+                    <p class="mb-4">Welcome to <strong>Pocket Kitty</strong> ("we," "our," or "us"). We are committed to protecting your privacy. This Privacy Policy explains how we collect, use, and share your personal information when you use our mobile application.</p>
+                    
+                    <h3 class="text-xl font-bold mt-8 mb-4 text-dark">1. Information We Collect</h3>
+                    <ul class="list-disc pl-5 space-y-2 mb-4">
+                        <li><strong>Account Information:</strong> Name, email, and profile picture via Google/Apple SSO.</li>
+                        <li><strong>User Content:</strong> Posts, comments, and media uploaded to the community feed.</li>
+                        <li><strong>Pet Information:</strong> Names, breeds, and photos of pets.</li>
+                        <li><strong>Device Data:</strong> Tokens for push notifications and usage logs.</li>
+                    </ul>
+
+                    <h3 class="text-xl font-bold mt-8 mb-4 text-dark">2. How We Use Your Data</h3>
+                    <p class="mb-4">We use your data to provide the service, facilitate sharing, send activity notifications, and moderate content using AI to ensure safety.</p>
+
+                    <h3 class="text-xl font-bold mt-8 mb-4 text-dark">3. Data Deletion</h3>
+                    <p class="mb-4">You retain the right to delete your data. You may request account deletion directly within the app settings or by contacting support.</p>
+
+                    <h3 class="text-xl font-bold mt-8 mb-4 text-dark">4. Contact Us</h3>
+                    <p>If you have any questions about this Privacy Policy, please contact us at support@pocketkitty.app.</p>
+                </div>
+                
+                <div class="mt-12 pt-8 border-t">
+                    <button onclick="navigateTo('home')" class="text-primary font-semibold hover:underline">← Back to Home</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= TERMS OF USE VIEW ================= -->
+        <div id="view-terms" class="page-view">
+            <div class="max-w-3xl mx-auto px-4 py-16">
+                <h1 class="text-4xl font-bold mb-2">Terms of Use</h1>
+                <p class="text-gray-500 mb-8">Last Updated: February 1, 2026</p>
+                
+                <div class="prose prose-lg text-gray-700">
+                    <h3 class="text-xl font-bold mt-8 mb-4 text-dark">1. Acceptance of Terms</h3>
+                    <p class="mb-4">By downloading or using Pocket Kitty, you agree to be bound by these Terms. If you disagree, you may not use the Service.</p>
+
+                    <h3 class="text-xl font-bold mt-8 mb-4 text-dark">2. User-Generated Content</h3>
+                    <p class="mb-4">You retain ownership of content you post but grant us a license to display it. You agree <strong>NOT</strong> to post unlawful, hateful, or explicit content. Violations will result in account suspension.</p>
+
+                    <h3 class="text-xl font-bold mt-8 mb-4 text-dark">3. Moderation</h3>
+                    <p class="mb-4">All content is subject to AI review. We reserve the right to remove content deemed inappropriate.</p>
+
+                    <h3 class="text-xl font-bold mt-8 mb-4 text-dark">4. Disclaimers</h3>
+                    <p class="mb-4">Content in Pocket Kitty is for informational purposes only and is <strong>not veterinary advice</strong>. Always seek professional help for medical conditions.</p>
+                </div>
+
+                <div class="mt-12 pt-8 border-t">
+                    <button onclick="navigateTo('home')" class="text-primary font-semibold hover:underline">← Back to Home</button>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="flex items-center mb-6 md:mb-0">
+                    <div class="relative w-8 h-8 mr-3 rounded-lg overflow-hidden shadow-sm bg-primary flex items-center justify-center">
+                        <img src="app_icon.png" alt="Pocket Kitty Icon" class="w-full h-full object-cover" onerror="this.style.display='none'; this.parentElement.innerHTML='<span class=\'font-bold text-dark\'>PK</span>'">
+                    </div>
+                    <span class="font-bold text-lg">Pocket Kitty</span>
+                </div>
+                
+                <div class="flex space-x-6 text-sm text-gray-400">
+                    <a href="#privacy" onclick="navigateTo('privacy')" class="hover:text-white transition">Privacy Policy</a>
+                    <a href="#terms" onclick="navigateTo('terms')" class="hover:text-white transition">Terms of Use</a>
+                    <a href="#" class="hover:text-white transition">Support</a>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-500 text-sm">
+                &copy; 2026 Pocket Kitty. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Simple Router Logic
+        function navigateTo(viewId, sectionId = null) {
+            // Hide all views
+            document.querySelectorAll('.page-view').forEach(el => {
+                el.classList.remove('active');
+            });
+
+            // Show target view
+            const target = document.getElementById(`view-${viewId}`);
+            if (target) {
+                target.classList.add('active');
+                window.scrollTo(0, 0); // Reset scroll
+                
+                // If specific section requested (e.g. #features), scroll to it
+                if (sectionId) {
+                    setTimeout(() => {
+                        const section = document.getElementById(sectionId);
+                        if (section) section.scrollIntoView();
+                    }, 100);
+                }
+            }
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        // Handle URL Hash on Load (e.g., yoursite.com/#privacy)
+        window.addEventListener('load', () => {
+            const hash = window.location.hash.replace('#', '');
+            if (hash === 'privacy') navigateTo('privacy');
+            else if (hash === 'terms') navigateTo('terms');
+            else navigateTo('home');
+        });
+
+        // Handle Hash Changes (Back button support)
+        window.addEventListener('hashchange', () => {
+            const hash = window.location.hash.replace('#', '');
+            if (hash === 'privacy') navigateTo('privacy');
+            else if (hash === 'terms') navigateTo('terms');
+            else navigateTo('home');
+        });
+    </script>
+</body>
+</html>
