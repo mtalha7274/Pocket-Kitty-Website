@@ -79,6 +79,95 @@
         .page-view { display: none; }
         .page-view.active { display: block; animation: fadeIn 0.5s; }
 
+        .store-buttons {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .store-button {
+            width: 232px;
+            height: 68px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            padding: 4px 10px;
+            background: #000000;
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 14px;
+            text-decoration: none;
+            box-sizing: border-box;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .store-button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.24);
+        }
+
+        .store-button-icon {
+            width: 38px;
+            height: 38px;
+            flex: 0 0 38px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .store-button-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+        }
+
+        .store-button-icon--apple img {
+            filter: brightness(0) invert(1);
+        }
+
+        .store-button-icon svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .store-button-text {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: center;
+            text-align: left;
+            line-height: 1.1;
+        }
+
+        .store-button-top {
+            display: block;
+            font-size: 10px;
+            font-weight: 400;
+            letter-spacing: 0.08em;
+            color: rgba(255, 255, 255, 0.76);
+            margin-bottom: 2px;
+        }
+
+        .store-button-bottom {
+            display: block;
+            font-size: 22px;
+            font-weight: 500;
+            color: #ffffff;
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+
+        @media (min-width: 640px) {
+            .store-buttons {
+                flex-direction: row;
+                justify-content: center;
+            }
+        }
+
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
@@ -151,13 +240,37 @@
                         Track health, join a safe community, and never worry about lost pets again with our SOS Pet Drops.
                     </p>
                     
-                    <div class="flex flex-col sm:flex-row justify-center gap-4">
-                        <button class="px-8 py-4 bg-primary hover:bg-primaryDark text-white rounded-2xl font-semibold text-lg shadow-lg hover:shadow-xl transition transform hover:-translate-y-1 flex items-center justify-center">
-                            <i data-lucide="download" class="w-5 h-5 mr-2"></i> Download App
-                        </button>
-                        <button class="px-8 py-4 bg-white border-2 border-gray-200 hover:border-primary text-gray-700 hover:text-primary rounded-2xl font-semibold text-lg shadow-sm hover:shadow-md transition flex items-center justify-center">
-                            <i data-lucide="play-circle" class="w-5 h-5 mr-2"></i> Watch Video
-                        </button>
+                    <div class="store-buttons">
+                        <a
+                            href="https://play.google.com/store/apps/details?id=com.thepocketkitty.app"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="store-button"
+                            aria-label="Get it on Google Play"
+                        >
+                            <span class="store-button-icon" aria-hidden="true">
+                                <img src="playstore.png" alt="">
+                            </span>
+                            <span class="store-button-text">
+                                <span class="store-button-top">GET IT ON</span>
+                                <span class="store-button-bottom">Google Play</span>
+                            </span>
+                        </a>
+                        <a
+                            href="https://apps.apple.com/app/id6760416862"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="store-button"
+                            aria-label="Download on the App Store"
+                        >
+                            <span class="store-button-icon store-button-icon--apple" aria-hidden="true">
+                                <img src="apple.png" alt="">
+                            </span>
+                            <span class="store-button-text">
+                                <span class="store-button-top">Download on the</span>
+                                <span class="store-button-bottom">App Store</span>
+                            </span>
+                        </a>
                     </div>
 
                     <!-- App Mockup Placeholder -->
@@ -224,9 +337,38 @@
                 <div class="relative max-w-4xl mx-auto px-4 text-center text-white">
                     <h2 class="text-4xl font-bold mb-6">Ready to join the pack?</h2>
                     <p class="text-xl mb-10 opacity-90">Start your streak today and become the best caregiver for your furry friend.</p>
-                    <button class="bg-white text-primary px-10 py-4 rounded-full font-bold text-lg shadow-xl hover:bg-gray-50 transition transform hover:-translate-y-1">
-                        Download for Free
-                    </button>
+                    <div class="store-buttons">
+                        <a
+                            href="https://play.google.com/store/apps/details?id=com.thepocketkitty.app"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="store-button"
+                            aria-label="Get it on Google Play"
+                        >
+                            <span class="store-button-icon" aria-hidden="true">
+                                <img src="playstore.png" alt="">
+                            </span>
+                            <span class="store-button-text">
+                                <span class="store-button-top">GET IT ON</span>
+                                <span class="store-button-bottom">Google Play</span>
+                            </span>
+                        </a>
+                        <a
+                            href="https://apps.apple.com/app/id6760416862"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="store-button"
+                            aria-label="Download on the App Store"
+                        >
+                            <span class="store-button-icon store-button-icon--apple" aria-hidden="true">
+                                <img src="apple.png" alt="">
+                            </span>
+                            <span class="store-button-text">
+                                <span class="store-button-top">Download on the</span>
+                                <span class="store-button-bottom">App Store</span>
+                            </span>
+                        </a>
+                    </div>
                 </div>
             </section>
         </div>
@@ -306,7 +448,7 @@
                 <div class="flex space-x-6 text-sm text-gray-400">
                     <a href="#privacy" onclick="navigateTo('privacy')" class="hover:text-white transition">Privacy Policy</a>
                     <a href="#terms" onclick="navigateTo('terms')" class="hover:text-white transition">Terms of Use</a>
-                    <a href="#" class="hover:text-white transition">Support</a>
+                    <a href="mailto:support@pocketmicros.com" class="hover:text-white transition">Support</a>
                 </div>
             </div>
             <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-500 text-sm">
